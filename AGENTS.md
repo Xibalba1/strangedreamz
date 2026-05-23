@@ -1,0 +1,140 @@
+---
+status: active
+owner: engineering
+last_reviewed: 2026-05-23
+superseded_by:
+---
+
+# AGENTS.md
+
+## Project Context
+
+This repo is for **Strange Dreamz: Living Video Panel**, a web experience where users collectively steer a four-panel AI video wall through theme submissions, voting, prompt mutation, realtime presentation effects, and interval-based video replacement.
+
+Current product source:
+
+- `docs/plans/PRD_V0.md`
+
+Current implementation status:
+
+- Product implementation has not been defined in code yet.
+- Tech stack, validation commands, CI, deployment target, and release runbook are not established.
+- Do not invent architecture or product requirements beyond the repo's existing product source.
+
+## Operating Loop
+
+Start broad work by orienting and classifying the next loop:
+
+```text
+Orient -> Classify -> Execute Loop -> Record
+```
+
+Use these loops:
+
+- Implementation: `Plan -> Red -> Green -> Refactor -> Commit -> Push -> Review -> Compound`
+- Review: `Inspect branch/PR/CI -> Address feedback -> Validate -> Mark ready or document blocker`
+- Release: `Confirm source -> Deploy -> Smoke -> Record -> Handoff`
+
+## Next Action Routing
+
+For broad prompts such as "what's next?", "continue", "lead the way", "is this ready?", or "ship it", use `docs/agent-skills/next-action-router.md` before choosing work.
+
+Do not start a new implementation slice when existing branch, review, CI, merge, release, deployment, or production smoke work is the next blocker.
+
+## TDD Expectations
+
+For behavior changes, write the failing test first. The test should describe user-visible behavior, a domain rule, a data contract, an operational check, or a safety boundary, not private implementation details.
+
+If test-first work is impractical, document why and name the closest useful validation before implementing.
+
+Every future implementation slice must name its first failing test before product code is written.
+
+## Commit And Push Discipline
+
+For non-trivial work:
+
+- Work on a task branch.
+- Commit after each coherent green slice.
+- Push meaningful green checkpoints.
+- Prefer early draft PRs when CI feedback matters.
+- Treat pushed branches as review-ready, not production-ready.
+- End substantial handoffs with commit status, push status, tests run, review status, deployment status, and uncommitted files.
+
+## Compound Engineering Expectations
+
+- Put non-trivial plans, PRDs, roadmaps, and design notes in `docs/plans/`.
+- Put completed reusable learnings in `docs/solutions/`.
+- Put rough ideas and seeds in `docs/brainstorms/`.
+- Put repo-local agent playbooks in `docs/agent-skills/`.
+- Put operational runbooks in `docs/operations/`.
+- Put unresolved actionable follow-ups in `todos/`.
+- Track playbook usage and promotion evidence in `docs/agent-skills/playbook-usage-log.md`.
+
+## Repo Agent Playbooks
+
+Use the repo-local playbooks in `docs/agent-skills/` when their trigger applies:
+
+- `planning-slice.md`
+- `tdd-implementer.md`
+- `review.md`
+- `compounder.md`
+- `next-action-router.md`
+- `release-promotion.md`
+- `playbook-usage-log.md`
+
+These are project-local playbooks, not formal skills yet. Promote only after repeated stable use.
+
+## Doc Freshness Protocol
+
+At the end of every non-trivial task, check whether the change invalidates active planning, architecture, product, design, or operations docs.
+
+- Update the PRD when product behavior, users, roles, scope, or non-goals change.
+- Update architecture docs when boundaries, infrastructure, data flow, provider choices, or major technology choices change.
+- Treat implementation plans as historical once completed.
+- Capture actual reusable outcomes in `docs/solutions/`.
+- Update `AGENTS.md` only for durable rules future agents should automatically follow.
+- Run Skill Harvest during Compound.
+- Update the playbook usage log when a repo-local playbook was used or changed.
+
+Do not let stale docs silently remain authoritative. If a doc is superseded, mark it clearly in frontmatter.
+
+## Validation Commands
+
+Canonical validation commands are not established yet because no product tech stack has been selected.
+
+When the stack is chosen, record commands for the repo, for example:
+
+- `<install command>`
+- `<lint command>`
+- `<typecheck command>`
+- `<unit test command>`
+- `<integration/e2e test command>`
+- `<build command>`
+
+Also record required setup commands for databases, queues, object storage, emulators, migrations, or local services.
+
+## Release And Deployment
+
+Release and deployment targets are not established yet.
+
+Default policy until a runbook exists:
+
+- Production deploys reviewed default-branch code.
+- Feature-branch and hotfix deploys require explicit approval.
+- Pushed branches are review-ready, not production-ready.
+- Draft PRs are not production-ready.
+- Merged code is release-eligible, not automatically live unless auto-deploy is configured, verified, and documented.
+- Production is current only when release identity and smoke checks prove it.
+- Do not deploy until `docs/operations/` contains the target environment, deployment mechanism, release identity check, smoke checks, and rollback expectations.
+
+## Architecture Decisions
+
+No durable architecture decisions have been recorded yet.
+
+Future decisions should capture:
+
+- The decision.
+- The source of truth or context.
+- Alternatives considered.
+- Validation and operational impact.
+- Conditions that would justify revisiting the decision.
