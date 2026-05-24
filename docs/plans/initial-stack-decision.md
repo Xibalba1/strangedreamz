@@ -20,7 +20,7 @@ Active. This decision records the initial stack before scaffold work so implemen
 
 Use a TypeScript-first single-repo web stack for Phase 0 and MVP:
 
-- Runtime: Node.js 20+.
+- Runtime: Node.js 22.22.3 or newer, recorded in `.nvmrc`.
 - Package manager: npm.
 - Client: Vite React with TypeScript and client-side React Router routes.
 - Server: Fastify for HTTP routes and health checks, with Socket.IO attached to the underlying Node HTTP server for realtime traffic.
@@ -77,7 +77,7 @@ The first behavior allowed to degrade under load is non-critical spectacle: over
 
 ## Decision Evidence
 
-- Local toolchain check found Node.js 20.15.0 and npm 10.7.0 available.
+- Local toolchain check initially found Node.js 20.15.0 and npm 10.7.0 available; scaffold validation moved to Node.js 22.22.3 and npm 10.9.8 so current Vite/Vitest dependencies can pass audit.
 - Local `pnpm --version` failed through Corepack signature verification after network access; npm is the lower-risk package manager for the first scaffold.
 - Local Ruby is 2.6.10 with Bundler 1.17.2, and `rails --version` reports Rails is not currently installed.
 - Elixir/Phoenix tooling was not present in the local command search.
@@ -87,8 +87,10 @@ The first behavior allowed to degrade under load is non-critical spectacle: over
 
 ## Phase 0 Paths And Commands To Prove Next
 
-U3 should scaffold the stack and make these command names real before recording them in `AGENTS.md`:
+U3 scaffolded the stack and proved these command names before recording them in `AGENTS.md`:
 
+- Setup: `nvm install`
+- Setup: `nvm use`
 - Install: `npm install`
 - Lint: `npm run lint`
 - Typecheck: `npm run typecheck`
@@ -110,7 +112,17 @@ Reject or revisit a candidate if it cannot satisfy the operating envelope, deter
 
 ## Proof Evidence
 
-Pending scaffold proof. The selected stack is not considered proven until U3-U5 establish passing validation commands and the deterministic shell.
+Scaffold proof completed on 2026-05-24 with Node.js 22.22.3 and npm 10.9.8:
+
+- `npm install`
+- `npm run lint`
+- `npm run typecheck`
+- `npm run test`
+- `npm run test:e2e`
+- `npm run build`
+- `npm audit --audit-level=moderate`
+
+The selected stack is still not considered product-proven until U4-U5 add the first failing deterministic shell test and implement the shell.
 
 ## Falsification Triggers
 

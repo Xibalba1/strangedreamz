@@ -1,7 +1,7 @@
 ---
 status: active
 owner: engineering
-last_reviewed: 2026-05-23
+last_reviewed: 2026-05-24
 superseded_by:
 ---
 
@@ -17,9 +17,10 @@ Current product source:
 
 Current implementation status:
 
-- Product implementation has not been scaffolded in code yet.
+- The selected TypeScript stack has been scaffolded in code.
 - Initial stack decision is recorded in `docs/plans/initial-stack-decision.md`.
-- Canonical validation commands, CI, deployment target, and release runbook are not established.
+- Canonical local validation commands are established below.
+- CI, deployment target, and release runbook are not established.
 - Do not invent architecture or product requirements beyond the repo's existing product source.
 
 ## Operating Loop
@@ -43,6 +44,8 @@ For broad prompts such as "what's next?", "continue", "lead the way", "is this r
 Do not start a new implementation slice when existing branch, review, CI, merge, release, deployment, or production smoke work is the next blocker.
 
 For prompts that ask to run, continue, or lead the Compound Engineering outer loop, use `docs/agent-skills/compound-outer-loop.md`. That playbook should select the next formal Compound Engineering skill as the inner executor instead of requiring the user to name each inner skill manually.
+
+The Compound Engineering outer loop is not a single inner-skill invocation. When the user asks the agent to lead with Compound Engineering, carry the current block of work through chained CE skill selection until it reaches a real terminal state: review-ready and compounded where applicable, review-blocked with the blocker documented, release-blocked with the blocker documented, or explicitly paused by the user. After each inner skill completes, reclassify the repo state before choosing the next step.
 
 ## TDD Expectations
 
@@ -104,16 +107,21 @@ Do not let stale docs silently remain authoritative. If a doc is superseded, mar
 
 ## Validation Commands
 
-Canonical validation commands are not established yet because the selected stack has not been scaffolded and proven locally.
+Canonical validation commands use Node.js 22.22.3 from `.nvmrc`.
 
-When the stack is chosen, record commands for the repo, for example:
+Setup:
 
-- `<install command>`
-- `<lint command>`
-- `<typecheck command>`
-- `<unit test command>`
-- `<integration/e2e test command>`
-- `<build command>`
+- `nvm install`
+- `nvm use`
+- `npm install`
+
+Validation:
+
+- `npm run lint`
+- `npm run typecheck`
+- `npm run test`
+- `npm run test:e2e`
+- `npm run build`
 
 Also record required setup commands for databases, queues, object storage, emulators, migrations, or local services.
 

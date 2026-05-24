@@ -13,7 +13,7 @@ Define the operational process architecture needed before Strange Dreamz can saf
 
 ## Product Requirements Covered
 
-- Canonical validation commands are not established yet.
+- Canonical validation commands are established for the scaffold.
 - Release and deployment targets are not established yet.
 - Production deploys reviewed default-branch code until a runbook changes that.
 - Feature-branch and hotfix deploys require explicit approval.
@@ -21,7 +21,7 @@ Define the operational process architecture needed before Strange Dreamz can saf
 - Production is current only when release identity and smoke checks prove it.
 - Do not deploy until `docs/operations/` contains target environment, deployment mechanism, release identity check, smoke checks, and rollback expectations.
 - Future provider integration must measure latency, failure, moderation, cost, and usable-loop rate.
-- Initial stack is TypeScript with a Vite React client, Node server, Socket.IO realtime boundary, npm, Vitest, and Playwright.
+- Initial stack is TypeScript with Node.js 22.22.3, a Vite React client, Node server, Socket.IO realtime boundary, npm, Vitest, and Playwright.
 
 ## Operational Boundaries
 
@@ -62,7 +62,7 @@ The selected stack should be rejected or revisited if it cannot support the MVP 
 
 For Phase 0, the operating envelope requires one canonical room to support 40 expected and 150 stress-case interactive clients, 2 expected and 8 stress-case unattended display clients, p95 snapshot fanout under 500 ms expected and 1500 ms under burst load, reconnect within 3 seconds expected and 10 seconds under stress, and graceful degradation that lowers non-critical spectacle before state, safety, or admin controls.
 
-The selected stack should prove these commands before `AGENTS.md` records them as canonical: `npm install`, `npm run lint`, `npm run typecheck`, `npm run test`, `npm run test:e2e`, and `npm run build`.
+The selected stack proved these scaffold commands before `AGENTS.md` recorded them as canonical: `nvm install`, `nvm use`, `npm install`, `npm run lint`, `npm run typecheck`, `npm run test`, `npm run test:e2e`, and `npm run build`.
 
 ## Secrets Management Contract
 

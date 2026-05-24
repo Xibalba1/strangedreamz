@@ -11,7 +11,7 @@ superseded_by:
 
 This document defines the first durable architecture plan for Strange Dreamz: Living Video Panel. It translates `docs/plans/PRD_V0.md` and `docs/plans/initial-roadmap.md` into technical boundaries, subsystem responsibilities, and implementation sequencing without selecting a concrete technology stack.
 
-The architecture is product-led and was stack-neutral until the Phase 0 stack decision. The selected initial stack is recorded in `docs/plans/initial-stack-decision.md`; the next implementation slice still needs to scaffold it, establish validation commands, and write the first executable failing test before product code is written.
+The architecture is product-led and was stack-neutral until the Phase 0 stack decision. The selected initial stack is recorded in `docs/plans/initial-stack-decision.md`; the next implementation slice should write the first executable failing deterministic shell test before product shell code is written.
 
 ## Source Of Truth
 
@@ -206,7 +206,7 @@ The first implementation plan should not merely pick a framework. It should reco
 
 ## First Implementation Slice
 
-The initial stack decision now exists. The current first implementation slice is to scaffold the selected TypeScript stack, make validation commands executable, and write `tests/e2e/deterministic-shell.spec.ts` as the first failing test before product shell implementation.
+The selected TypeScript stack is scaffolded and validation commands are executable. The current first implementation slice is to write `tests/e2e/deterministic-shell.spec.ts` as the first failing test before product shell implementation.
 
 First failing test to name before product code is written:
 
