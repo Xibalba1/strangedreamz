@@ -45,3 +45,4 @@ Do not create a formal skill only because a workflow is interesting.
 | 2026-05-22 | Repo workflow bootstrap | Planning Slice, Compounder | None yet | Seeded baseline; no promotion evidence yet |
 | 2026-05-23 | PRD interview and rewrite | Planning Slice | None | Helped keep PRD work tied to source-of-truth and future testable slices; more use needed before promotion |
 | 2026-05-23 | Documentation organization pass | Next Action Router, Compounder | None | Reinforced placement rules for PRDs, reusable methodology notes, brainstorms, and todos |
+| 2026-05-23 | Architecture and technical design planning | Planning Slice, Compounder | None | Helped convert PRD and roadmap into stack-neutral architecture docs while preserving first-failing-test discipline |

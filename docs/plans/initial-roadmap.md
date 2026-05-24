@@ -41,6 +41,7 @@ Placeholder until the stack is selected: an executable expectation that the app 
 ### Implementation Slices
 
 - Select the initial application stack and record the decision.
+- Define the MVP operating envelope and stack-selection decision frame.
 - Establish canonical validation commands.
 - Create the first app shell with deterministic seed data.
 - Preserve MVP scope around project-specific pre-generated videos before real AI generation.
@@ -62,7 +63,7 @@ Placeholder until the stack is selected: an executable expectation that the app 
 
 - `AGENTS.md` validation commands.
 - `docs/plans/initial-roadmap.md`
-- A future architecture decision document in `docs/plans/` once the stack is selected.
+- `docs/plans/ARCHITECTURE.md` and subordinate technical designs once the stack is selected.
 
 ## Phase 1: First Useful Realtime Illusion
 
@@ -191,3 +192,14 @@ Revisit `todos/agent-team-orchestration-playbook.md` only when the work can be s
 ## Recommended Next Step
 
 Move from process bootstrap into project substance: choose the first implementation stack and convert Phase 0 into a small plan that names the exact first failing test.
+
+## Active Architecture Planning Docs
+
+- `docs/plans/ARCHITECTURE.md`
+- `docs/plans/technical-designs/room-state-and-cycle-engine.md`
+- `docs/plans/technical-designs/responsive-clients-and-presentation.md`
+- `docs/plans/technical-designs/identity-actions-and-social-inputs.md`
+- `docs/plans/technical-designs/moderation-admin-and-safety.md`
+- `docs/plans/technical-designs/video-assets-and-generation-pipeline.md`
+- `docs/plans/technical-designs/persistence-retention-and-recovery.md`
+- `docs/plans/technical-designs/operations-release-and-validation.md`
