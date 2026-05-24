@@ -205,7 +205,7 @@ The first implementation plan should not merely pick a framework. It should reco
 
 ## First Implementation Slice
 
-The roadmap's recommended next step remains current: choose the initial stack and convert Phase 0 into a small implementation plan.
+The Phase 0 stack-selection plan now exists. The current first implementation slice is to complete `docs/plans/initial-stack-decision.md` by selecting the initial application stack, recording candidates and rejection criteria, and naming the exact deterministic shell test path before product code is written.
 
 First failing test to name before product code is written:
 
