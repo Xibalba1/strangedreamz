@@ -11,7 +11,7 @@ superseded_by:
 
 This document defines the first durable architecture plan for Strange Dreamz: Living Video Panel. It translates `docs/plans/PRD_V0.md` and `docs/plans/initial-roadmap.md` into technical boundaries, subsystem responsibilities, and implementation sequencing without selecting a concrete technology stack.
 
-The architecture is intentionally product-led and stack-neutral. The next implementation slice still needs to select the initial application stack, establish validation commands, and name the first executable failing test before product code is written.
+The architecture is product-led and was stack-neutral until the Phase 0 stack decision. The selected initial stack is recorded in `docs/plans/initial-stack-decision.md`; the next implementation slice still needs to scaffold it, establish validation commands, and write the first executable failing test before product code is written.
 
 ## Source Of Truth
 
@@ -54,7 +54,7 @@ The first behavior allowed to degrade under load is non-critical spectacle: over
 
 ## Non-Goals
 
-- This plan does not choose the web framework, database, realtime transport, hosting target, storage provider, moderation provider, or AI video provider.
+- This plan does not choose the database, hosting target, storage provider, moderation provider, AI video provider, or future multi-node realtime scaling adapter.
 - This plan does not introduce multiple rooms for MVP.
 - This plan does not add durable normal user accounts, share pages, public archives, full chat, or real AI generation to MVP.
 - This plan does not replace `docs/plans/PRD_V0.md` as the product source of truth.
@@ -111,11 +111,11 @@ All interactive and display surfaces observe the same room state: panes, cycle p
 
 Rationale: The PRD defines the room as one shared organism. Shared state protects collective authorship, display mode parity, and recovery behavior.
 
-### Functional boundaries before service boundaries
+### TypeScript single-repo stack before service boundaries
 
-The first architecture names subsystem boundaries without deciding whether they become modules, packages, server routes, workers, queues, or separate services.
+Phase 0 should start as one TypeScript repo with a React client, Node server, deterministic fixtures, and Socket.IO realtime boundary. Subsystem boundaries should appear as modules and tests before any services, workers, queues, or deployment-specific split.
 
-Rationale: The roadmap says the stack and deployment target are not selected. Premature service decomposition would invent implementation commitments before the first useful slice exists.
+Rationale: The roadmap still has no deployment target, but the stack decision now gives implementation enough shape to scaffold. Premature service decomposition would still invent operational commitments before the first useful slice exists.
 
 ### Cycle state is a first-class domain lifecycle
 
@@ -192,35 +192,35 @@ The first implementation plan should not merely pick a framework. It should reco
 
 ## Delivery Sequencing
 
-1. Define the stack-selection decision frame, MVP operating envelope, and canonical validation commands.
-2. Build a deterministic four-panel shell from seed data.
-3. Establish a minimal cycle and phase-eligibility contract before building phase-dependent social actions.
-4. Establish a minimal project-specific seed pool and trait metadata contract; keep generic stand-ins developer-only.
-5. Implement session handles, theme submissions, boosts, pane votes, murmurs, and activity as behavior-tested social actions.
-6. Add full cycle advancement, lock-in, prompt mutation, lineage, and oldest-pane replacement from the pre-generated pool.
-7. Add daily availability, recovery behavior, display mode, admin controls, and panic-state client contracts.
-8. Add aggregate product-learning metrics from domain events without a public archive.
-9. Harden operations with release identity, smoke checks, documented rollback expectations, log retention, and secrets handling.
-10. Plan V1 social mechanics and provider integration after the fake-generation loop is testable and useful.
+1. Scaffold the selected TypeScript stack and establish canonical validation commands.
+2. Write the first failing deterministic shell test.
+3. Build a deterministic four-panel shell from seed data.
+4. Establish a minimal cycle and phase-eligibility contract before building phase-dependent social actions.
+5. Establish a minimal project-specific seed pool and trait metadata contract; keep generic stand-ins developer-only.
+6. Implement session handles, theme submissions, boosts, pane votes, murmurs, and activity as behavior-tested social actions.
+7. Add full cycle advancement, lock-in, prompt mutation, lineage, and oldest-pane replacement from the pre-generated pool.
+8. Add daily availability, recovery behavior, display mode, admin controls, and panic-state client contracts.
+9. Add aggregate product-learning metrics from domain events without a public archive.
+10. Harden operations with release identity, smoke checks, documented rollback expectations, log retention, and secrets handling.
+11. Plan V1 social mechanics and provider integration after the fake-generation loop is testable and useful.
 
 ## First Implementation Slice
 
-The Phase 0 stack-selection plan now exists. The current first implementation slice is to complete `docs/plans/initial-stack-decision.md` by selecting the initial application stack, recording candidates and rejection criteria, and naming the exact deterministic shell test path before product code is written.
+The initial stack decision now exists. The current first implementation slice is to scaffold the selected TypeScript stack, make validation commands executable, and write `tests/e2e/deterministic-shell.spec.ts` as the first failing test before product shell implementation.
 
 First failing test to name before product code is written:
 
 > An executable expectation that the app can render the core four-panel video wall shell from deterministic seed data and expose the same room snapshot to an interactive client and a read-only display client.
 
-Closest useful validation before stack selection:
+Closest useful validation before scaffold:
 
-- Review this architecture plan and subordinate design docs for product alignment.
-- Confirm that every future implementation slice has a subsystem boundary and first failing test expectation to draw from.
+- Review this architecture plan, the stack decision, and subordinate design docs for product alignment.
+- Confirm that the scaffold slice preserves the named first failing test and does not introduce product behavior beyond the deterministic shell proof.
 
 ## Open Architecture Decisions
 
-- Initial application stack.
 - Database and persistence model.
-- Realtime transport.
+- Realtime scaling adapter, if the single-node Socket.IO proof later needs multi-node fanout.
 - Auth/session mechanism for normal users and admins.
 - Moderation provider or local moderation model.
 - Seed video asset format and hosting.

@@ -92,13 +92,15 @@ Rationale: stale or aspirational validation commands are worse than placeholders
 
 ## Open Questions
 
-- Which stack candidates should be compared? This is planning-owned work for the stack decision unit.
-- What exact test file paths and command names apply? These depend on the selected stack and must be recorded in the decision record before product code begins.
 - Should the Phase 0 proof include a non-product diagnostic state propagation event, or only snapshot parity? The architecture asks for at least one shared-state propagation path, but any propagation proof must avoid inventing user-facing social behavior.
 
 Resolved by U1:
 
 - The numeric MVP operating envelope is recorded in `docs/plans/ARCHITECTURE.md` and `docs/plans/initial-stack-decision.md`.
+
+Resolved by U2:
+
+- Stack candidates, the selected stack, rejection rationale, command names to prove, and deterministic shell test paths are recorded in `docs/plans/initial-stack-decision.md`.
 
 ## Implementation Units
 
@@ -192,8 +194,8 @@ Expected file changes:
 
 Path decision:
 
-- Because this plan exists before stack selection, the exact test path is deferred to U2.
-- Before U4 begins, `docs/plans/initial-stack-decision.md` must name the concrete test path, command, and fixture path.
+- U2 recorded the concrete test path, command, and fixture path in `docs/plans/initial-stack-decision.md`.
+- U4 should use `tests/e2e/deterministic-shell.spec.ts` as the first failing test unless the scaffold proves that path incompatible and updates the decision record before product code begins.
 
 Test scenarios:
 

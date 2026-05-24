@@ -13,10 +13,10 @@ superseded_by:
 
 ## Current Unknowns
 
-- Product implementation stack is not selected.
+- Product implementation stack is selected but not scaffolded.
 - Validation commands are not established.
 - CI, hosting, storage, AI video provider, and deployment targets are not established.
-- Specific database, realtime transport, auth/session mechanism, and moderation provider are not selected.
+- Specific database, auth/session mechanism, moderation provider, and any future realtime scaling adapter are not selected.
 - First project-specific seed videos are not selected.
 - Visual effect presets are not selected.
 
@@ -40,8 +40,8 @@ Placeholder until the stack is selected: an executable expectation that the app 
 
 ### Implementation Slices
 
-- Use the recorded MVP operating envelope to select the initial application stack and record the decision.
-- Establish canonical validation commands.
+- Scaffold the selected TypeScript stack.
+- Establish canonical validation commands after they pass.
 - Create the first app shell with deterministic seed data.
 - Preserve MVP scope around project-specific pre-generated videos before real AI generation.
 
@@ -190,7 +190,7 @@ Revisit `todos/agent-team-orchestration-playbook.md` only when the work can be s
 
 ## Recommended Next Step
 
-Move from the Phase 0 stack-selection plan into the first decision unit: choose the initial application stack in `docs/plans/initial-stack-decision.md`, then establish canonical validation commands and the exact first deterministic shell test path before product code begins.
+Move from the stack decision into executable proof: scaffold the selected TypeScript stack, establish canonical validation commands, and write the first failing deterministic shell test before product shell implementation.
 
 ## Active Architecture Planning Docs
 

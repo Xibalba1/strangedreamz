@@ -17,8 +17,9 @@ Current product source:
 
 Current implementation status:
 
-- Product implementation has not been defined in code yet.
-- Tech stack, validation commands, CI, deployment target, and release runbook are not established.
+- Product implementation has not been scaffolded in code yet.
+- Initial stack decision is recorded in `docs/plans/initial-stack-decision.md`.
+- Canonical validation commands, CI, deployment target, and release runbook are not established.
 - Do not invent architecture or product requirements beyond the repo's existing product source.
 
 ## Operating Loop
@@ -103,7 +104,7 @@ Do not let stale docs silently remain authoritative. If a doc is superseded, mar
 
 ## Validation Commands
 
-Canonical validation commands are not established yet because no product tech stack has been selected.
+Canonical validation commands are not established yet because the selected stack has not been scaffolded and proven locally.
 
 When the stack is chosen, record commands for the repo, for example:
 
