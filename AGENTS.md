@@ -104,16 +104,21 @@ Do not let stale docs silently remain authoritative. If a doc is superseded, mar
 
 ## Validation Commands
 
-Canonical validation commands are not established yet because the selected stack has not been scaffolded and proven locally.
+Canonical validation commands use Node.js 22.22.3 from `.nvmrc`.
 
-When the stack is chosen, record commands for the repo, for example:
+Setup:
 
-- `<install command>`
-- `<lint command>`
-- `<typecheck command>`
-- `<unit test command>`
-- `<integration/e2e test command>`
-- `<build command>`
+- `nvm install`
+- `nvm use`
+- `npm install`
+
+Validation:
+
+- `npm run lint`
+- `npm run typecheck`
+- `npm run test`
+- `npm run test:e2e`
+- `npm run build`
 
 Also record required setup commands for databases, queues, object storage, emulators, migrations, or local services.
 
