@@ -192,8 +192,8 @@ Expected file changes:
 
 Path decision:
 
-- Because this plan exists before stack selection, the exact test path is deferred to U2.
-- Before U4 begins, `docs/plans/initial-stack-decision.md` must name the concrete test path, command, and fixture path.
+- U2 recorded the concrete test path, command, and fixture path in `docs/plans/initial-stack-decision.md`.
+- U4 should use `tests/e2e/deterministic-shell.spec.ts` as the first failing test unless the scaffold proves that path incompatible and updates the decision record before product code begins.
 
 Test scenarios:
 
