@@ -1,7 +1,7 @@
 ---
 status: active
 owner: engineering
-last_reviewed: 2026-05-23
+last_reviewed: 2026-05-24
 superseded_by:
 ---
 
@@ -57,7 +57,9 @@ The stack-selection slice must prove more than a static page:
 - browser workflow testing for at least one responsive surface;
 - local fake-provider defaults that cannot call live providers by accident.
 
-The selected stack should be rejected or revisited if it cannot support the MVP operating envelope, deterministic time tests, secure session-backed mutations, or deployable smoke checks without disproportionate custom infrastructure.
+The selected stack should be rejected or revisited if it cannot support the MVP operating envelope in `docs/plans/ARCHITECTURE.md`, deterministic time tests, secure session-backed mutations, or deployable smoke checks without disproportionate custom infrastructure.
+
+For Phase 0, the operating envelope requires one canonical room to support 40 expected and 150 stress-case interactive clients, 2 expected and 8 stress-case unattended display clients, p95 snapshot fanout under 500 ms expected and 1500 ms under burst load, reconnect within 3 seconds expected and 10 seconds under stress, and graceful degradation that lowers non-critical spectacle before state, safety, or admin controls.
 
 ## Secrets Management Contract
 

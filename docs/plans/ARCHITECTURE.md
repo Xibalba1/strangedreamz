@@ -1,7 +1,7 @@
 ---
 status: active
 owner: engineering
-last_reviewed: 2026-05-23
+last_reviewed: 2026-05-24
 superseded_by:
 ---
 
@@ -31,15 +31,26 @@ The architecture is intentionally product-led and stack-neutral. The next implem
 
 ## MVP Operating Envelope
 
-The first stack decision must include an explicit operating envelope before product code depends on the choice. Until a stack-selection plan replaces this section with concrete numbers, candidate stacks should be evaluated against one canonical room in a shared building context with:
+The first stack decision must prove it can carry one canonical room in a shared-building context. These numbers are Phase 0 stack-selection gates, not a public-scale launch promise.
 
-- multiple interactive clients plus at least one unattended display client observing the same room;
-- bursty Final Surge behavior where votes, boosts, murmurs, lead changes, overlays, and countdown updates cluster together;
-- user-visible feedback that feels immediate for rankings, pane influence, genome movement, activity, and overlays;
-- reconnect behavior that restores the current room snapshot without duplicating actions;
-- graceful degradation that preserves the video wall and safety controls before lowering overlay density or non-critical spectacle.
+| Field | Expected MVP Target | Stress Gate For Stack Selection |
+| --- | --- | --- |
+| Interactive clients | 40 concurrent browser sessions acting in one room | 150 concurrent browser sessions in one room |
+| Unattended display clients | 2 display-mode clients | 8 display-mode clients |
+| Sustained room mutations | 2 accepted user or admin mutations per second for a full 5-minute cycle | 8 accepted mutations per second for a 60-second burst |
+| Final Surge burst | 5 accepted mutations per second during the final 30 seconds before Lock-In | 15 accepted mutations per second for 30 seconds |
+| Snapshot fanout latency | p95 under 500 ms from accepted mutation to visible update on connected clients | p95 under 1500 ms during burst load |
+| Countdown/phase drift | Visible phase and countdown stay within 1 second of authoritative room time | Drift recovers to under 1 second within 5 seconds after burst load |
+| Reconnect | Refresh or temporary network loss restores the current snapshot within 3 seconds without duplicating actions | Restores within 10 seconds without duplicated actions or stale action eligibility |
 
-Stack selection is not complete until a decision record names expected and stress-case concurrent clients, display clients, event rate, acceptable update latency, reconnect expectations, and the first behavior allowed to degrade under load.
+Graceful degradation should follow this order:
+
+1. Reduce transient overlay density and animation intensity.
+2. Batch non-critical activity-feed and Murmur presentation updates.
+3. Lower decorative presentation effects and non-essential metrics refresh.
+4. Preserve four-pane video visibility, authoritative room state, action-limit enforcement, moderation outcomes, admin controls, and visible safety states.
+
+The first behavior allowed to degrade under load is non-critical spectacle: overlay frequency, animation intensity, and feed presentation density. The video wall, canonical snapshot, phase eligibility, accepted mutations, and safety/admin controls must not be the first degraded capabilities.
 
 ## Non-Goals
 
@@ -174,7 +185,7 @@ Rationale: The PRD describes V1 as real generation plus richer social mechanics 
 The first implementation plan should not merely pick a framework. It should record:
 
 - required capabilities: authoritative shared room state, realtime fanout, deterministic time testing, responsive/browser workflow testing, secure session-backed mutations, admin auth, media asset serving, operational logging, and deployable smoke checks;
-- candidate options and rejection criteria, including what would make a candidate fail the MVP operating envelope;
+- candidate options and rejection criteria, including what would make a candidate fail the MVP operating envelope above;
 - the smallest proof: render the deterministic four-panel wall, connect at least two interactive clients plus one display-mode client to one room snapshot, mutate shared state from one client, and observe the update everywhere without live provider calls;
 - the validation commands and CI shape that will become canonical in `AGENTS.md`;
 - what evidence would falsify the selected stack before later slices depend on it.
@@ -208,7 +219,6 @@ Closest useful validation before stack selection:
 ## Open Architecture Decisions
 
 - Initial application stack.
-- MVP operating envelope with expected/stress clients, event rate, latency, reconnect, and degradation targets.
 - Database and persistence model.
 - Realtime transport.
 - Auth/session mechanism for normal users and admins.

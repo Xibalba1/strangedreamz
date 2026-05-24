@@ -1,7 +1,7 @@
 ---
 status: active
 owner: engineering
-last_reviewed: 2026-05-23
+last_reviewed: 2026-05-24
 superseded_by:
 ---
 
@@ -40,8 +40,7 @@ Placeholder until the stack is selected: an executable expectation that the app 
 
 ### Implementation Slices
 
-- Select the initial application stack and record the decision.
-- Define the MVP operating envelope and stack-selection decision frame.
+- Use the recorded MVP operating envelope to select the initial application stack and record the decision.
 - Establish canonical validation commands.
 - Create the first app shell with deterministic seed data.
 - Preserve MVP scope around project-specific pre-generated videos before real AI generation.
@@ -191,7 +190,7 @@ Revisit `todos/agent-team-orchestration-playbook.md` only when the work can be s
 
 ## Recommended Next Step
 
-Move from process bootstrap into project substance: choose the first implementation stack and convert Phase 0 into a small plan that names the exact first failing test.
+Move from the Phase 0 stack-selection plan into the first decision unit: choose the initial application stack in `docs/plans/initial-stack-decision.md`, then establish canonical validation commands and the exact first deterministic shell test path before product code begins.
 
 ## Active Architecture Planning Docs
 

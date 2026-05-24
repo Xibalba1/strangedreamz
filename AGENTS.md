@@ -41,6 +41,8 @@ For broad prompts such as "what's next?", "continue", "lead the way", "is this r
 
 Do not start a new implementation slice when existing branch, review, CI, merge, release, deployment, or production smoke work is the next blocker.
 
+For prompts that ask to run, continue, or lead the Compound Engineering outer loop, use `docs/agent-skills/compound-outer-loop.md`. That playbook should select the next formal Compound Engineering skill as the inner executor instead of requiring the user to name each inner skill manually.
+
 ## TDD Expectations
 
 For behavior changes, write the failing test first. The test should describe user-visible behavior, a domain rule, a data contract, an operational check, or a safety boundary, not private implementation details.
@@ -79,6 +81,7 @@ Use the repo-local playbooks in `docs/agent-skills/` when their trigger applies:
 - `review.md`
 - `compounder.md`
 - `next-action-router.md`
+- `compound-outer-loop.md`
 - `release-promotion.md`
 - `playbook-usage-log.md`
 
