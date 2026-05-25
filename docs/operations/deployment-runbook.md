@@ -30,9 +30,16 @@ Feature-branch, hotfix, rollback, and production variable changes require explic
 
 ## Required Local Tools
 
+Canonical local tool context is tracked in `docs/operations/cli-inventory.md`.
+
+Deployment directly requires:
+
 - `hcloud`
 - `ssh`
 - `git`
+- `docker`
+- `docker compose`
+- `npm`
 
 ## Server Access
 
