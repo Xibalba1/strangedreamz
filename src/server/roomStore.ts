@@ -1,5 +1,6 @@
 import {
   deterministicRoomSnapshot,
+  type PaneSnapshot,
   type RoomSnapshot,
   type ThemeSnapshot,
 } from "../shared/roomSnapshot";
@@ -14,8 +15,13 @@ type MutableTheme = ThemeSnapshot & {
   submittedBySessionId: string;
 };
 
-type MutableRoom = Omit<RoomSnapshot, "themes"> & {
+type MutablePane = PaneSnapshot & {
+  votedBySessionIds: Set<string>;
+};
+
+type MutableRoom = Omit<RoomSnapshot, "panes" | "themes"> & {
   handles: Map<string, SessionHandle>;
+  panes: MutablePane[];
   themes: MutableTheme[];
 };
 
@@ -36,6 +42,12 @@ const toSlug = (value: string) =>
 const toThemeId = (theme: string, sessionId: string) =>
   `theme-${toSlug(theme)}-${toSlug(sessionId)}`;
 
+const cloneInitialPanes = (): MutablePane[] =>
+  deterministicRoomSnapshot.panes.map((pane) => ({
+    ...pane,
+    votedBySessionIds: new Set<string>(),
+  }));
+
 const cloneInitialThemes = (): MutableTheme[] =>
   deterministicRoomSnapshot.themes.map((theme) => ({
     ...theme,
@@ -46,31 +58,45 @@ const cloneInitialThemes = (): MutableTheme[] =>
 const publicSnapshot = (
   room: MutableRoom,
   sessionId: string | undefined,
-): PublicRoomSnapshot => ({
-  brand: room.brand,
-  phase: room.phase,
-  countdown: room.countdown,
-  cycleLabel: room.cycleLabel,
-  boostsRemaining: room.boostsRemaining,
-  panes: room.panes,
-  murmurs: room.murmurs,
-  handle: sessionId ? room.handles.get(sessionId)?.handle : undefined,
-  themes: room.themes.map((theme) => ({
-    id: theme.id,
-    text: theme.text,
-    boosts: theme.boosts,
-    submittedBy: theme.submittedBy,
-    canBoost:
-      Boolean(sessionId) &&
-      theme.submittedBySessionId !== sessionId &&
-      !theme.boostedBySessionIds.has(sessionId ?? ""),
-  })),
-});
+): PublicRoomSnapshot => {
+  const handle = sessionId ? room.handles.get(sessionId)?.handle : undefined;
+
+  return {
+    brand: room.brand,
+    phase: room.phase,
+    countdown: room.countdown,
+    cycleLabel: room.cycleLabel,
+    boostsRemaining: room.boostsRemaining,
+    panes: room.panes.map((pane) => ({
+      id: pane.id,
+      name: pane.name,
+      position: pane.position,
+      age: pane.age,
+      influence: pane.influence,
+      traits: pane.traits,
+      palette: pane.palette,
+      canVote: Boolean(handle) && !pane.votedBySessionIds.has(sessionId ?? ""),
+    })),
+    murmurs: room.murmurs,
+    handle,
+    themes: room.themes.map((theme) => ({
+      id: theme.id,
+      text: theme.text,
+      boosts: theme.boosts,
+      submittedBy: theme.submittedBy,
+      canBoost:
+        Boolean(handle) &&
+        theme.submittedBySessionId !== sessionId &&
+        !theme.boostedBySessionIds.has(sessionId ?? ""),
+    })),
+  };
+};
 
 export const createRoomStore = () => {
   const room: MutableRoom = {
     ...deterministicRoomSnapshot,
     handles: new Map<string, SessionHandle>(),
+    panes: cloneInitialPanes(),
     themes: cloneInitialThemes(),
   };
 
@@ -162,6 +188,28 @@ export const createRoomStore = () => {
       theme.boostedBySessionIds.add(sessionId);
       theme.boosts += 1;
       room.themes = [...room.themes].sort((left, right) => right.boosts - left.boosts);
+
+      return publicSnapshot(room, sessionId);
+    },
+
+    votePane(sessionId: string, paneId: string) {
+      const handle = room.handles.get(sessionId)?.handle;
+      const pane = room.panes.find((candidate) => candidate.id === paneId);
+
+      if (!handle) {
+        throw new Error("Choose a handle before voting on a pane.");
+      }
+
+      if (!pane) {
+        throw new Error("Pane not found.");
+      }
+
+      if (pane.votedBySessionIds.has(sessionId)) {
+        throw new Error("You already voted for this pane.");
+      }
+
+      pane.votedBySessionIds.add(sessionId);
+      pane.influence += 1;
 
       return publicSnapshot(room, sessionId);
     },

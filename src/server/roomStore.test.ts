@@ -49,4 +49,29 @@ describe("room store social actions", () => {
     expect(duplicates).toHaveLength(2);
     expect(new Set(duplicates.map((theme) => theme.id)).size).toBe(2);
   });
+
+  it("lets a handled session vote on a pane once without changing pane survival", () => {
+    const roomStore = createRoomStore();
+
+    roomStore.claimHandle("session-1", "Pane Voter");
+    const voted = roomStore.votePane("session-1", "velvet-static");
+    const pane = voted.panes.find((candidate) => candidate.id === "velvet-static");
+
+    expect(pane?.influence).toBe(43);
+    expect(pane?.age).toBe("oldest");
+    expect(pane?.canVote).toBe(false);
+    expect(() => {
+      roomStore.votePane("session-1", "velvet-static");
+    }).toThrow("You already voted for this pane.");
+  });
+
+  it("requires a handle before voting on a pane", () => {
+    const roomStore = createRoomStore();
+    const snapshot = roomStore.snapshot("session-1");
+
+    expect(snapshot.panes.find((pane) => pane.id === "velvet-static")?.canVote).toBe(false);
+    expect(() => {
+      roomStore.votePane("session-1", "velvet-static");
+    }).toThrow("Choose a handle before voting on a pane.");
+  });
 });

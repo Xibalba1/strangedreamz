@@ -56,4 +56,29 @@ describe("server app", () => {
     expect(response.headers["content-type"]).toContain("text/html");
     expect(response.body).toContain("Strange Dreamz shell");
   });
+
+  it("accepts pane votes from handled sessions", async () => {
+    app = createApp({ logger: false });
+
+    await app.inject({
+      method: "POST",
+      payload: { handle: "Pane Voter", sessionId: "session-1" },
+      url: "/api/handles",
+    });
+    const response = await app.inject({
+      method: "POST",
+      payload: { sessionId: "session-1" },
+      url: "/api/panes/velvet-static/votes",
+    });
+    const pane = response
+      .json()
+      .panes.find((candidate: { id: string }) => candidate.id === "velvet-static");
+
+    expect(response.statusCode).toBe(200);
+    expect(pane).toMatchObject({
+      age: "oldest",
+      canVote: false,
+      influence: 43,
+    });
+  });
 });

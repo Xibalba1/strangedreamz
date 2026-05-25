@@ -73,6 +73,8 @@ Users can choose a session handle, see four looping panes, submit eligible theme
 
 Completed: an executable expectation that a user with a session handle can submit an eligible theme during the submission window and another user can boost it, updating the visible boost count.
 
+Completed: an executable expectation that a user with a session handle can vote on a pane and see the pane's influence update visibly without affecting pane survival.
+
 ### Implementation Slices
 
 - Four-pane video grid using project-specific seed videos or deterministic local stand-ins.
@@ -80,7 +82,7 @@ Completed: an executable expectation that a user with a session handle can submi
 - Session handle creation and uniqueness for the awake day. Initial in-memory version completed in `src/server/roomStore.ts` and `src/client/App.tsx`.
 - Theme submission and queue display. Initial in-memory version completed in `src/server/roomStore.ts`, `src/server/app.ts`, and `src/client/App.tsx`.
 - Theme boosting with visible count or rank changes. Initial in-memory version completed with self-boost and duplicate-boost prevention.
-- Pane voting with visible infection/genome change.
+- Pane voting with visible infection/genome change. Initial in-memory version completed with one vote per session per pane and influence-only feedback.
 - Murmurs stream with constrained commentary.
 - Activity feed entries for user and system actions.
 
@@ -191,7 +193,7 @@ Revisit `todos/agent-team-orchestration-playbook.md` only when the work can be s
 
 ## Recommended Next Step
 
-Continue Phase 1 by adding the next social-state transition: write the first failing behavior test that a user with a session handle can vote on a pane and see the pane's influence or genome signal update visibly without affecting pane survival.
+Continue Phase 1 by adding the next social-state transition: write the first failing behavior test that a user with a session handle can post a constrained Murmur and see it appear in the room whispers stream without behaving like open chat.
 
 ## Active Architecture Planning Docs
 
