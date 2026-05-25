@@ -71,24 +71,26 @@ Users can choose a session handle, see four looping panes, submit eligible theme
 
 ### First Failing Test
 
-An executable expectation that a user with a session handle can submit an eligible theme during the submission window and another user can boost it, updating visible rank or count.
+Completed: an executable expectation that a user with a session handle can submit an eligible theme during the submission window and another user can boost it, updating the visible boost count.
 
 ### Implementation Slices
 
 - Four-pane video grid using project-specific seed videos or deterministic local stand-ins.
 - Big-screen control/social panel and small-screen bottom-sheet control surface.
-- Session handle creation and uniqueness for the awake day.
-- Theme submission and queue display.
-- Theme boosting with visible count or rank changes.
+- Session handle creation and uniqueness for the awake day. Initial in-memory version completed in `src/server/roomStore.ts` and `src/client/App.tsx`.
+- Theme submission and queue display. Initial in-memory version completed in `src/server/roomStore.ts`, `src/server/app.ts`, and `src/client/App.tsx`.
+- Theme boosting with visible count or rank changes. Initial in-memory version completed with self-boost and duplicate-boost prevention.
 - Pane voting with visible infection/genome change.
 - Murmurs stream with constrained commentary.
 - Activity feed entries for user and system actions.
 
 ### Validation
 
-- `<targeted component/domain test command>`
-- `<browser or workflow test command>`
-- `<build command>`
+- `npm run lint`
+- `npm run typecheck`
+- `npm run test`
+- `npm run test:e2e`
+- `npm run build`
 
 ### Risks
 
@@ -189,7 +191,7 @@ Revisit `todos/agent-team-orchestration-playbook.md` only when the work can be s
 
 ## Recommended Next Step
 
-Move from deterministic shell proof into the first useful realtime illusion: write the first failing behavior test that a user with a session handle can submit an eligible theme during the submission window and another user can boost it, updating visible rank or count.
+Continue Phase 1 by adding the next social-state transition: write the first failing behavior test that a user with a session handle can vote on a pane and see the pane's influence or genome signal update visibly without affecting pane survival.
 
 ## Active Architecture Planning Docs
 

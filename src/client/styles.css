@@ -85,14 +85,61 @@ button {
     background 160ms ease;
 }
 
+button:disabled {
+  border-color: rgb(243 239 231 / 18%);
+  color: #93a09a;
+  background: #2a2f31;
+  cursor: not-allowed;
+  transform: none;
+}
+
 button:hover {
   background: var(--lime);
   transform: translateY(-1px);
 }
 
+button:disabled:hover {
+  background: #2a2f31;
+  transform: none;
+}
+
 button:focus-visible {
   outline: 3px solid var(--ember);
   outline-offset: 3px;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 11px 12px;
+  color: #f3efe7;
+  background: rgb(5 8 9 / 52%);
+  font: inherit;
+}
+
+textarea {
+  min-height: 84px;
+  resize: vertical;
+}
+
+input:disabled,
+textarea:disabled {
+  color: rgb(243 239 231 / 44%);
+  background: rgb(243 239 231 / 8%);
+}
+
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--ember);
+  outline-offset: 3px;
+}
+
+label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
 }
 
 .cycle-strip {
@@ -248,6 +295,19 @@ button:focus-visible {
   gap: 10px;
 }
 
+.room-form {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.status-line {
+  border-left: 3px solid var(--cyan);
+  padding-left: 10px;
+  color: #f3efe7;
+  font-weight: 800;
+}
+
 .theme-list,
 .murmur-list {
   display: grid;
@@ -266,17 +326,34 @@ button:focus-visible {
 
 .theme-list li {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   gap: 12px;
   align-items: start;
 }
 
+.theme-list button {
+  width: 100%;
+  min-height: 44px;
+  padding-block: 8px;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
 .theme-list span {
+  display: grid;
+  gap: 4px;
   min-width: 0;
 }
 
-.theme-list strong {
+.theme-list span > strong {
+  color: #f3efe7;
+}
+
+.theme-list small {
   color: var(--ember);
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
 .app-shell--display .social-panel {
