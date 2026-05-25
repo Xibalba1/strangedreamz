@@ -1,0 +1,30 @@
+services:
+  app:
+    build:
+      context: ..
+      args:
+        NODE_VERSION: "22.22.3"
+    environment:
+      HOST: "0.0.0.0"
+      NODE_ENV: "production"
+      PORT: "3000"
+      RELEASE_SHA: "${RELEASE_SHA:?Set RELEASE_SHA to the git commit being deployed}"
+      SERVE_STATIC: "true"
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2.10
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_config:
+  caddy_data:

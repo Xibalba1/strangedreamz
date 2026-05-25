@@ -14,7 +14,7 @@ Define the operational process architecture needed before Strange Dreamz can saf
 ## Product Requirements Covered
 
 - Canonical validation commands are established for the scaffold.
-- Release and deployment targets are not established yet.
+- Release and deployment target is Hetzner Cloud for the initial VPS deployment.
 - Production deploys reviewed default-branch code until a runbook changes that.
 - Feature-branch and hotfix deploys require explicit approval.
 - Pushed branches are review-ready, not production-ready.
@@ -29,7 +29,7 @@ Define the operational process architecture needed before Strange Dreamz can saf
 | --- | --- |
 | Validation | Install, lint, typecheck if applicable, unit/domain tests, browser/workflow tests, build |
 | CI | Runs canonical validation on PRs or merge candidates |
-| Deployment | Target environment and mechanism documented |
+| Deployment | Hetzner Cloud VPS target and Docker Compose mechanism documented |
 | Release identity | A way to prove which source revision is live |
 | Smoke checks | Room availability, display mode, seed videos, core actions, admin panic path |
 | Rollback | Expected rollback or mitigation path |
@@ -95,8 +95,6 @@ Before V1 provider work or any live external moderation/storage service, documen
 
 ## Open Decisions
 
-- CI provider and workflow shape.
-- Hosting/deployment target.
 - Secrets management.
 - Observability/logging approach.
 - Production domain and display mode URL shape.

@@ -20,7 +20,8 @@ Current implementation status:
 - The selected TypeScript stack has been scaffolded in code.
 - Initial stack decision is recorded in `docs/plans/initial-stack-decision.md`.
 - Canonical local validation commands are established below.
-- CI, deployment target, and release runbook are not established.
+- CI workflow, Hetzner deployment target, and initial release runbooks are established in `docs/operations/`.
+- Production is current only after deployment and smoke evidence are recorded.
 - Do not invent architecture or product requirements beyond the repo's existing product source.
 
 ## Operating Loop
@@ -127,9 +128,15 @@ Also record required setup commands for databases, queues, object storage, emula
 
 ## Release And Deployment
 
-Release and deployment targets are not established yet.
+Release and deployment target:
 
-Default policy until a runbook exists:
+- Provider: Hetzner Cloud
+- Project: `strangedreamz`
+- Production server: `strangedreamz-prod-ash-1`
+- Public IPv4: `87.99.136.176`
+- Runbooks: `docs/operations/`
+
+Default release policy:
 
 - Production deploys reviewed default-branch code.
 - Feature-branch and hotfix deploys require explicit approval.
