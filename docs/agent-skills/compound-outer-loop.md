@@ -33,7 +33,9 @@ This playbook is a loop orchestrator. It decides which formal skill should run n
 - Repo-local playbooks add project constraints; they do not replace formal skill instructions.
 - Broad work starts with repo state classification before new implementation begins.
 - Do not skip review, compounding, documentation freshness, or release-state checks just because implementation is complete.
-- If a required stop condition appears, document the blocker and stop at that terminal state instead of silently falling back to new implementation.
+- A full Compound Engineering loop normally ends only after the current block is merged, deployed, smoke-validated, recorded in release evidence, and handed off.
+- Review-ready, PR-open, CI-green, and merged are intermediate states, not full-loop terminal states.
+- If a required stop condition appears, document the blocker and stop instead of silently falling back to new implementation.
 
 ## Outer Loop
 
@@ -77,24 +79,28 @@ Orient -> Classify -> Select Next CE Skill -> Execute Skill -> Validate State ->
    - Do not start a new implementation slice when review, CI, merge, release, or smoke validation is the blocker.
    - Treat pushed branches as review-ready, not production-ready.
    - Treat merged code as release-eligible, not automatically live unless deployment automation and smoke evidence prove it.
+   - Treat deployed code as current only after release identity and smoke evidence are recorded.
 
 6. Reclassify and continue until terminal.
    - If requirements are still unclear, continue with `ce-brainstorm` or `ce-plan`.
    - If planned work remains, continue with `ce-work` or `ce-debug`.
    - If implementation is complete but unpublished, continue with commit, push, and PR flow.
-   - If a branch or PR is open, continue with review or CI resolution before new implementation.
+   - If a branch or PR is open, continue with review, CI resolution, and merge before new implementation.
+   - If the PR is green, reviewed, and mergeable, merge it to the default branch before entering Release.
+   - If reviewed work is merged and production is behind, continue with `docs/agent-skills/release-promotion.md`.
    - If completed work changed durable knowledge, continue with `ce-compound` and the repo-local compounder.
-   - If deployment is requested but release prerequisites are missing, stop in Release with the blocker documented.
+   - Stop before the full-loop terminal state only when blocked by CI, review feedback, merge conflict, missing approval, release safety, or an explicit user pause.
+   - If release prerequisites are missing, stop in Release with the blocker documented.
 
 7. Record the result.
-   - For non-trivial work, end with commit status, push status, tests run, review status, deployment status, and uncommitted files.
+   - For non-trivial work, end with commit status, push status, PR/merge status, tests run, release identity, smoke status, deployment status, and uncommitted files.
    - Run the doc freshness protocol from `AGENTS.md`.
    - Update `docs/agent-skills/playbook-usage-log.md` when this playbook materially guided the loop or changed.
 
 ## Routing Examples
 
-- "Continue the CE outer loop" on a branch with an open PR and failing CI routes to Review, then likely `ce-debug` or `ce-code-review`, not new implementation. After CI is fixed, reclassify for PR readiness and compounding.
-- "Lead the way" with no active PR and a clear next plan routes through `next-action-router.md`, then likely `ce-work`. After work completes, continue through validation, review, commit/push/PR, and compound unless a stop condition blocks it.
+- "Continue the CE outer loop" on a branch with an open PR and failing CI routes to Review, then likely `ce-debug` or `ce-code-review`, not new implementation. After CI is fixed, reclassify for merge and release.
+- "Lead the way" with no active PR and a clear next plan routes through `next-action-router.md`, then likely `ce-work`. After work completes, continue through validation, review, commit/push/PR, merge, release promotion, smoke validation, release evidence, and compound unless a stop condition blocks it.
 - "Take stack selection through the outer loop" routes to Implementation, likely `ce-plan` if the decision still needs structure or `ce-work` if an active plan already names the next failing test.
 - "Ship it" routes to `next-action-router.md` first. If release targets and smoke checks are missing, stop and document the release blocker instead of deploying.
 

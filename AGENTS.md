@@ -36,7 +36,7 @@ Orient -> Classify -> Execute Loop -> Record
 Use these loops:
 
 - Implementation: `Plan -> Red -> Green -> Refactor -> Commit -> Push -> Review -> Compound`
-- Review: `Inspect branch/PR/CI -> Address feedback -> Validate -> Mark ready or document blocker`
+- Review: `Inspect branch/PR/CI -> Address feedback -> Validate -> Merge or document blocker`
 - Release: `Confirm source -> Deploy -> Smoke -> Record -> Handoff`
 
 ## Next Action Routing
@@ -47,7 +47,7 @@ Do not start a new implementation slice when existing branch, review, CI, merge,
 
 For prompts that ask to run, continue, or lead the Compound Engineering outer loop, use `docs/agent-skills/compound-outer-loop.md`. That playbook should select the next formal Compound Engineering skill as the inner executor instead of requiring the user to name each inner skill manually.
 
-The Compound Engineering outer loop is not a single inner-skill invocation. When the user asks the agent to lead with Compound Engineering, carry the current block of work through chained CE skill selection until it reaches a real terminal state: review-ready and compounded where applicable, review-blocked with the blocker documented, release-blocked with the blocker documented, or explicitly paused by the user. After each inner skill completes, reclassify the repo state before choosing the next step.
+The Compound Engineering outer loop is not a single inner-skill invocation. When the user asks the agent to lead with Compound Engineering, carry the current block of work through chained CE skill selection until it reaches the full-loop terminal state: merged, deployed to production, smoke-validated, recorded in release evidence, and handed off. Stop earlier only when blocked by CI, review feedback, merge conflict, missing approval, release safety, or an explicit user pause; document the blocker before handing off. After each inner skill completes, reclassify the repo state before choosing the next step.
 
 ## TDD Expectations
 
@@ -66,6 +66,7 @@ For non-trivial work:
 - Push meaningful green checkpoints.
 - Prefer early draft PRs when CI feedback matters.
 - Treat pushed branches as review-ready, not production-ready.
+- Treat review-ready as an intermediate state in a full Compound Engineering loop, not a terminal state, unless a blocker or explicit pause prevents merge and release.
 - End substantial handoffs with commit status, push status, tests run, review status, deployment status, and uncommitted files.
 
 ## Compound Engineering Expectations
