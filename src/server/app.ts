@@ -1,6 +1,8 @@
 import fastifyStatic from "@fastify/static";
 import Fastify from "fastify";
 import type { FastifyServerOptions } from "fastify";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { scaffoldStatus as defaultScaffoldStatus } from "../shared/scaffold";
 
 type CreateAppOptions = {
@@ -26,10 +28,18 @@ export const createApp = (options: CreateAppOptions = {}) => {
   }));
 
   if (options.serveStatic && options.staticRoot) {
+    const staticRoot = options.staticRoot;
+
     void app.register(fastifyStatic, {
-      root: options.staticRoot,
+      root: staticRoot,
       index: "index.html",
       wildcard: false,
+    });
+
+    app.get("/display", async (_request, reply) => {
+      const indexHtml = await readFile(join(staticRoot, "index.html"), "utf8");
+
+      return reply.type("text/html; charset=utf-8").send(indexHtml);
     });
   }
 

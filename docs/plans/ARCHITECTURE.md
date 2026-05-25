@@ -1,7 +1,7 @@
 ---
 status: active
 owner: engineering
-last_reviewed: 2026-05-24
+last_reviewed: 2026-05-25
 superseded_by:
 ---
 
@@ -113,9 +113,9 @@ Rationale: The PRD defines the room as one shared organism. Shared state protect
 
 ### TypeScript single-repo stack before service boundaries
 
-Phase 0 should start as one TypeScript repo with a React client, Node server, deterministic fixtures, and Socket.IO realtime boundary. Subsystem boundaries should appear as modules and tests before any services, workers, queues, or deployment-specific split.
+Phase 0 started as one TypeScript repo with a React client, Node server, deterministic fixtures, and Socket.IO dependency available for the realtime boundary. Subsystem boundaries should appear as modules and tests before any services, workers, queues, or deployment-specific split.
 
-Rationale: The roadmap still has no deployment target, but the stack decision now gives implementation enough shape to scaffold. Premature service decomposition would still invent operational commitments before the first useful slice exists.
+Rationale: The stack decision, deployment target, and first shell proof now give implementation enough shape for Phase 1 social behavior. Premature service decomposition would still invent operational commitments before the first useful social loop exists.
 
 ### Cycle state is a first-class domain lifecycle
 
@@ -192,9 +192,9 @@ The first implementation plan should not merely pick a framework. It should reco
 
 ## Delivery Sequencing
 
-1. Scaffold the selected TypeScript stack and establish canonical validation commands.
-2. Write the first failing deterministic shell test.
-3. Build a deterministic four-panel shell from seed data.
+1. Scaffold the selected TypeScript stack and establish canonical validation commands. Completed.
+2. Write the first failing deterministic shell test. Completed.
+3. Build a deterministic four-panel shell from seed data. Completed.
 4. Establish a minimal cycle and phase-eligibility contract before building phase-dependent social actions.
 5. Establish a minimal project-specific seed pool and trait metadata contract; keep generic stand-ins developer-only.
 6. Implement session handles, theme submissions, boosts, pane votes, murmurs, and activity as behavior-tested social actions.
@@ -206,16 +206,15 @@ The first implementation plan should not merely pick a framework. It should reco
 
 ## First Implementation Slice
 
-The selected TypeScript stack is scaffolded and validation commands are executable. The current first implementation slice is to write `tests/e2e/deterministic-shell.spec.ts` as the first failing test before product shell implementation.
+The selected TypeScript stack is scaffolded, validation commands are executable, and the deterministic four-panel shell proof is implemented.
 
-First failing test to name before product code is written:
+Completed first failing test:
 
 > An executable expectation that the app can render the core four-panel video wall shell from deterministic seed data and expose the same room snapshot to an interactive client and a read-only display client.
 
-Closest useful validation before scaffold:
+Next first failing test to name before product code is written:
 
-- Review this architecture plan, the stack decision, and subordinate design docs for product alignment.
-- Confirm that the scaffold slice preserves the named first failing test and does not introduce product behavior beyond the deterministic shell proof.
+> An executable expectation that a user with a session handle can submit an eligible theme during the submission window and another user can boost it, updating visible rank or count.
 
 ## Open Architecture Decisions
 
@@ -226,8 +225,6 @@ Closest useful validation before scaffold:
 - Seed video asset format and hosting.
 - Minimal project-specific seed pool size, trait coverage, reuse policy, and launch gate.
 - Aggregate product metrics and retention boundaries.
-- Deployment target.
-- CI and canonical validation commands.
 - V1 pane survival/protection or equivalent social mechanic.
 - V1 AI video provider, storage/CDN model, concurrency, and timeout thresholds.
 

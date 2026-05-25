@@ -1,2 +1,2 @@
 export const scaffoldStatus =
-  "Stack scaffold is ready for the deterministic four-panel shell proof.";
+  "Deterministic four-panel shell is ready for the first shared room proof.";
