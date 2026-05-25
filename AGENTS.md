@@ -1,7 +1,7 @@
 ---
 status: active
 owner: engineering
-last_reviewed: 2026-05-24
+last_reviewed: 2026-05-25
 superseded_by:
 ---
 
@@ -21,6 +21,7 @@ Current implementation status:
 - Initial stack decision is recorded in `docs/plans/initial-stack-decision.md`.
 - Canonical local validation commands are established below.
 - CI workflow, Hetzner deployment target, and initial release runbooks are established in `docs/operations/`.
+- Project-relevant CLI inventory is recorded in `docs/operations/cli-inventory.md`.
 - Production is current only after deployment and smoke evidence are recorded.
 - Do not invent architecture or product requirements beyond the repo's existing product source.
 
@@ -125,6 +126,17 @@ Validation:
 - `npm run build`
 
 Also record required setup commands for databases, queues, object storage, emulators, migrations, or local services.
+
+## CLI-First Tooling
+
+Prefer project-relevant CLIs over manual guessing when a CLI can inspect the source of truth.
+
+- Read `docs/operations/cli-inventory.md` during orientation for implementation, review, release, infrastructure, provider, or operations work.
+- Run `npm run cli:inventory` when local tool availability is uncertain.
+- Use `git` for repo state, `gh` for GitHub/CI/PR state, `hcloud` for Hetzner Cloud state, `docker` and `docker compose` for production-style runtime state, `ssh` for documented VPS access, `curl` for endpoint probes, and npm scripts for canonical project validation.
+- When spawning worker agents, include the relevant CLI inventory excerpt in their task prompt so they know which local tools to prefer.
+- Keep `docs/operations/cli-inventory.md` and `scripts/cli-inventory.mjs` updated whenever a workflow starts depending on a new CLI or retires an old one.
+- Do not request, paste, or expose secrets in chat. Use local CLI authentication flows and redact secret-looking command output.
 
 ## Release And Deployment
 

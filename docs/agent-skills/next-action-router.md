@@ -1,7 +1,7 @@
 ---
 status: active
 owner: engineering
-last_reviewed: 2026-05-22
+last_reviewed: 2026-05-25
 superseded_by:
 ---
 
@@ -24,6 +24,7 @@ Run the smallest useful read-only checks:
 - Is the branch ahead of or behind its upstream?
 - Are there local commits not pushed?
 - Are there open PRs for the current branch or latest completed work?
+- Which project CLIs are relevant to the next loop, according to `docs/operations/cli-inventory.md`?
 - Is review draft, ready, merged, blocked, or failing CI?
 - Does the default branch contain work not deployed?
 - Does production report the expected release identity?

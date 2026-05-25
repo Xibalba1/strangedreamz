@@ -1,7 +1,7 @@
 ---
 status: active
 owner: engineering
-last_reviewed: 2026-05-24
+last_reviewed: 2026-05-25
 superseded_by:
 ---
 
@@ -45,6 +45,8 @@ Orient -> Classify -> Select Next CE Skill -> Execute Skill -> Validate State ->
 
 1. Orient with the smallest useful read-only checks.
    - Read `AGENTS.md`.
+   - Read `docs/operations/cli-inventory.md` when the loop may involve implementation, review, release, infrastructure, provider, or operations tooling.
+   - Run `npm run cli:inventory` when local tool availability is uncertain.
    - Use `docs/agent-skills/next-action-router.md` for broad prompts.
    - Check branch, working tree, pushed state, PR/review state, and release blockers when relevant.
 
@@ -68,6 +70,7 @@ Orient -> Classify -> Select Next CE Skill -> Execute Skill -> Validate State ->
 4. Execute the selected formal skill.
    - Open and follow the formal skill's `SKILL.md`.
    - Preserve this repo's TDD rule: every future implementation slice must name its first failing test before product code is written.
+   - If spawning worker agents, include the relevant CLI inventory excerpt from `docs/operations/cli-inventory.md` in their task prompt.
    - Use repo-local playbooks when their trigger applies, especially `planning-slice.md`, `tdd-implementer.md`, `review.md`, `release-promotion.md`, and `compounder.md`.
 
 5. Validate state before moving to another loop.

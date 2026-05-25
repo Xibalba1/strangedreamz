@@ -1,7 +1,7 @@
 ---
 status: active
 owner: engineering
-last_reviewed: 2026-05-24
+last_reviewed: 2026-05-25
 superseded_by:
 ---
 
@@ -55,3 +55,4 @@ Do not create a formal skill only because a workflow is interesting.
 | 2026-05-24 | TypeScript scaffold and validation bootstrap | Next Action Router, Compound Outer Loop | None | Routed post-merge state into U3 scaffold work, established canonical npm validation commands, and preserved U4 as the first product-behavior test |
 | 2026-05-24 | Outer-loop orchestration clarification | Compound Outer Loop, Next Action Router, Compounder | Updated `compound-outer-loop.md` and `AGENTS.md` to define the outer loop as chained CE skill orchestration until a terminal state, not a single inner-skill invocation | Strengthens the trigger semantics for broad prompts like "lead the way with Compound Engineering"; useful promotion evidence if later loops reliably continue through review and compound |
 | 2026-05-24 | Scaffold PR review-readiness pass | Next Action Router, Compound Outer Loop, Review, Compounder | None | Demonstrated that a broad CE prompt stayed in Review for an open PR, ran canonical validation, fixed a frontmatter freshness issue, marked the PR ready, and returned to Compound instead of starting U4 prematurely |
+| 2026-05-25 | CLI-first agent tooling | Compound Outer Loop, TDD Implementer, Compounder | Added a CLI inventory doc/script and wired CLI-first context into `AGENTS.md`, `compound-outer-loop.md`, and `next-action-router.md` | Shows the outer loop can turn an operating principle into tested tooling, durable agent instructions, and reusable project memory without requiring the user to invoke inner skills separately |
