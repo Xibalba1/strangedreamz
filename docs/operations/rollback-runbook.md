@@ -21,6 +21,7 @@ git fetch origin
 git checkout main
 git reset --hard <previous-good-sha>
 export RELEASE_SHA="$(git rev-parse HEAD)"
+printf "RELEASE_SHA=%s\n" "$RELEASE_SHA" > deploy/.env
 docker compose -f deploy/compose.yaml up -d --build
 ```
 
