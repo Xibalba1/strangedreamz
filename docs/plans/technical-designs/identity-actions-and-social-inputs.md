@@ -1,7 +1,7 @@
 ---
 status: active
 owner: engineering
-last_reviewed: 2026-05-23
+last_reviewed: 2026-05-25
 superseded_by:
 ---
 
@@ -33,6 +33,12 @@ Define the MVP normal-user identity model, action economy, theme queue, pane vot
 - Murmurs are social commentary, not chat.
 - Activity feed records domain events and system actions.
 - Lineage composes compact credit from lock-in, boosts, pane influence, and notable murmurs.
+
+## Current Implementation Slice
+
+The first social-action slice implements an in-memory room store for the deterministic MVP shell. It supports browser-session handles, duplicate-handle rejection, one current-cycle theme submission per session, visible queue updates, self-boost prevention, and duplicate-boost prevention for a theme.
+
+This is deliberately not the full action economy yet. Per-cycle boost pools, per-theme caps beyond one boost per session, pane votes, Murmurs, activity events, persistence, moderation, and CSRF/session-hardening remain future slices.
 
 ## Mutation Security Boundary
 

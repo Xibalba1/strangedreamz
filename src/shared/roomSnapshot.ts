@@ -15,6 +15,7 @@ export type ThemeSnapshot = {
   text: string;
   boosts: number;
   submittedBy: string;
+  canBoost?: boolean;
 };
 
 export type RoomSnapshot = {
