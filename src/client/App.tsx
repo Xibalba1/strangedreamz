@@ -49,11 +49,25 @@ const requestRoom = async <TBody,>(
   return (await response.json()) as InteractiveRoomSnapshot;
 };
 
-function Pane({ pane }: { pane: PaneSnapshot }) {
+function Pane({
+  hasHandle,
+  isDisplayMode,
+  onVote,
+  pane,
+}: {
+  hasHandle: boolean;
+  isDisplayMode: boolean;
+  onVote: (paneId: string) => void;
+  pane: PaneSnapshot;
+}) {
+  const canVote = hasHandle && pane.canVote;
+
   return (
     <article
       aria-label={`Panel ${pane.position}: ${pane.name}`}
-      className={`dream-pane dream-pane--${pane.palette}`}
+      className={`dream-pane dream-pane--${pane.palette}${
+        !isDisplayMode ? " dream-pane--interactive" : ""
+      }`}
     >
       <div className="pane-visual" aria-hidden="true">
         <span className="pane-pulse" />
@@ -67,6 +81,18 @@ function Pane({ pane }: { pane: PaneSnapshot }) {
         <span>{pane.age}</span>
         <span>{pane.influence}% influence</span>
       </div>
+      {!isDisplayMode ? (
+        <button
+          className="pane-vote"
+          disabled={!canVote}
+          onClick={() => {
+            onVote(pane.id);
+          }}
+          type="button"
+        >
+          Vote for {pane.name}
+        </button>
+      ) : null}
     </article>
   );
 }
@@ -161,6 +187,15 @@ export function App() {
     setMessage("Boost landed");
   };
 
+  const votePane = async (paneId: string) => {
+    const nextRoom = await requestRoom(`/api/panes/${paneId}/votes`, {
+      sessionId,
+    });
+
+    setRoom(nextRoom);
+    setMessage("Pane influence shifted");
+  };
+
   const runAction = (action: () => Promise<void>) => {
     void action().catch((error: unknown) => {
       setMessage(error instanceof Error ? error.message : "Room action failed.");
@@ -195,7 +230,15 @@ export function App() {
       <section className="wall-layout">
         <section className="video-wall" aria-label="Living video wall">
           {room.panes.map((pane) => (
-            <Pane key={pane.id} pane={pane} />
+            <Pane
+              hasHandle={Boolean(room.handle)}
+              isDisplayMode={isDisplayMode}
+              key={pane.id}
+              onVote={(paneId) => {
+                runAction(() => votePane(paneId));
+              }}
+              pane={pane}
+            />
           ))}
         </section>
 

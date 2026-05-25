@@ -78,6 +78,17 @@ export const createApp = (options: CreateAppOptions = {}) => {
     },
   );
 
+  app.post<{ Body: SessionBody; Params: { paneId: string } }>(
+    "/api/panes/:paneId/votes",
+    async (request, reply) => {
+      try {
+        return roomStore.votePane(request.body.sessionId ?? "", request.params.paneId);
+      } catch (error) {
+        return sendMutationError(reply, error);
+      }
+    },
+  );
+
   if (options.serveStatic && options.staticRoot) {
     const staticRoot = options.staticRoot;
 

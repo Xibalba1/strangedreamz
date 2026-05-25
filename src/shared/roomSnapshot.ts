@@ -8,6 +8,7 @@ export type PaneSnapshot = {
   influence: number;
   traits: string[];
   palette: string;
+  canVote?: boolean;
 };
 
 export type ThemeSnapshot = {

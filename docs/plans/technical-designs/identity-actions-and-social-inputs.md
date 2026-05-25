@@ -36,9 +36,9 @@ Define the MVP normal-user identity model, action economy, theme queue, pane vot
 
 ## Current Implementation Slice
 
-The first social-action slice implements an in-memory room store for the deterministic MVP shell. It supports browser-session handles, duplicate-handle rejection, one current-cycle theme submission per session, visible queue updates, self-boost prevention, and duplicate-boost prevention for a theme.
+The first social-action slices implement an in-memory room store for the deterministic MVP shell. It supports browser-session handles, duplicate-handle rejection, one current-cycle theme submission per session, visible queue updates, self-boost prevention, duplicate-boost prevention for a theme, and one influence-only pane vote per session per pane.
 
-This is deliberately not the full action economy yet. Per-cycle boost pools, per-theme caps beyond one boost per session, pane votes, Murmurs, activity events, persistence, moderation, and CSRF/session-hardening remain future slices.
+This is deliberately not the full action economy yet. Per-cycle boost pools, per-theme caps beyond one boost per session, per-cycle pane vote pools and per-pane caps beyond one vote per session, Murmurs, activity events, persistence, moderation, and CSRF/session-hardening remain future slices.
 
 ## Mutation Security Boundary
 
@@ -70,7 +70,7 @@ MVP pane votes influence genome, visual infection, callouts, activity, and linea
 - Incubation: given Submission Window has ended, a submitted theme appears as incubating for the next cycle.
 - Boost limit: given a user has placed five boosts on one theme, a sixth boost on that theme is rejected.
 - Self-boost prevention: given a user submitted a theme, that same session cannot boost it.
-- Pane vote limit: given a user has voted three times on one pane, another vote on that pane is rejected.
+- Pane vote limit: given a user has voted three times on one pane in a full action-economy cycle, another vote on that pane is rejected.
 - Murmur cooldown: given a user posted a murmur less than 30 seconds ago, posting another murmur is disabled or rejected.
 - Mutation security: given a forged, cross-site, replayed, stale-session, or display-mode request attempts a submission, boost, vote, murmur, or echo, the mutation is rejected and no public event is emitted.
 - Lineage composition: given a locked theme, top boosters, dominant pane influence, and a notable murmur, emergence displays compact lineage with appropriate credit.

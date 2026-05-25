@@ -251,6 +251,10 @@ label {
   background: linear-gradient(0deg, rgb(0 0 0 / 68%), rgb(0 0 0 / 0%));
 }
 
+.dream-pane--interactive .pane-copy {
+  padding-bottom: 88px;
+}
+
 .pane-kicker,
 .panel-label {
   margin: 0 0 8px;
@@ -276,6 +280,16 @@ label {
   color: #f7f2ea;
   font-size: 0.78rem;
   font-weight: 800;
+}
+
+.pane-vote {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2;
+  max-width: calc(100% - 40px);
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .social-panel {
@@ -403,6 +417,16 @@ label {
   .pane-copy,
   .social-panel {
     padding: 16px;
+  }
+
+  .dream-pane--interactive .pane-copy {
+    padding-bottom: 84px;
+  }
+
+  .pane-vote {
+    right: 16px;
+    bottom: 16px;
+    max-width: calc(100% - 32px);
   }
 
   .pane-copy h2 {
