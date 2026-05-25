@@ -1,7 +1,7 @@
 ---
 status: active
 owner: engineering
-last_reviewed: 2026-05-24
+last_reviewed: 2026-05-25
 superseded_by:
 ---
 
@@ -14,8 +14,7 @@ superseded_by:
 ## Current Unknowns
 
 - Product implementation stack is selected and scaffolded.
-- Validation commands are established for the scaffold.
-- CI, hosting, storage, AI video provider, and deployment targets are not established.
+- Validation commands, CI, Hetzner hosting, deployment, release identity, smoke checks, and rollback runbooks are established.
 - Specific database, auth/session mechanism, moderation provider, and any future realtime scaling adapter are not selected.
 - First project-specific seed videos are not selected.
 - Visual effect presets are not selected.
@@ -36,20 +35,21 @@ The team can choose and validate the first thin implementation slice without inv
 
 ### First Failing Test
 
-Placeholder until the stack is selected: an executable expectation that the app can render the core four-panel video wall shell from deterministic seed data.
+Completed: an executable expectation that the app renders the core four-panel video wall shell from deterministic seed data and exposes the same snapshot to interactive and read-only display clients.
 
 ### Implementation Slices
 
-- Write the first failing deterministic shell test.
-- Create the first app shell with deterministic seed data.
+- Write the first failing deterministic shell test. Completed in `tests/e2e/deterministic-shell.spec.ts`.
+- Create the first app shell with deterministic seed data. Completed in `src/shared/roomSnapshot.ts` and `src/client/App.tsx`.
 - Preserve MVP scope around project-specific pre-generated videos before real AI generation.
 
 ### Validation
 
-- `<install command>`
-- `<lint command>`
-- `<unit test command>`
-- `<build command>`
+- `npm run lint`
+- `npm run typecheck`
+- `npm run test`
+- `npm run test:e2e`
+- `npm run build`
 
 ### Risks
 
@@ -189,7 +189,7 @@ Revisit `todos/agent-team-orchestration-playbook.md` only when the work can be s
 
 ## Recommended Next Step
 
-Move from scaffold into executable product proof: write the first failing deterministic shell test before product shell implementation.
+Move from deterministic shell proof into the first useful realtime illusion: write the first failing behavior test that a user with a session handle can submit an eligible theme during the submission window and another user can boost it, updating visible rank or count.
 
 ## Active Architecture Planning Docs
 
